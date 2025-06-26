@@ -1,12 +1,35 @@
 ﻿<Window x:Class="FitodietCalc.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:FitodietCalc"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="FitodietCalc" Height="600" Width="900"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize">
 
-    </Grid>
+    <DockPanel Background="#EEFFF4">
+
+        <!-- Header -->
+        <Border DockPanel.Dock="Top" Background="#A2D6C4" Padding="10">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" >
+                <Image Source="/Resources/logoFitodietCalc.jpg" Width="40" Height="40" Margin="0,0,10,0"/>
+                <TextBlock Text="FitodietCalc" FontSize="20" Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock x:Name="VersionTextBlock" Foreground="White" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="12" />
+            </StackPanel>
+        </Border>
+
+        <Border DockPanel.Dock="Left" Width="200" Background="#B6E7D7" Padding="10" Margin="0,0,5,0">
+            <StackPanel>
+                <Button Content="🧍 Nuevo paciente" Margin="0,5" Padding="10"/>
+                <Button Content="🔍 Buscar / cargar paciente" Margin="0,5" Padding="10"/>
+                <Button Content="📋 Listado de pacientes" Margin="0,5" Padding="10"/>
+                <Button Content="📊 Resultados" Margin="0,5" Padding="10"/>
+                <Button Content="🍽️ Plan de dieta (Fase 2)" Margin="0,5" Padding="10" IsEnabled="False"/>
+            </StackPanel>
+        </Border>
+
+        <!-- Dynamic content area -->
+        <Border Background="White" Padding="20" Margin="5">
+            <ContentControl x:Name="ContentArea"/>
+        </Border>
+
+    </DockPanel>
 </Window>
