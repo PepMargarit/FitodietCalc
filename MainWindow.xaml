@@ -15,7 +15,8 @@
                 <TextBlock x:Name="VersionTextBlock" Foreground="White" VerticalAlignment="Center" Margin="15,0,0,0" FontSize="12" />
             </StackPanel>
         </Border>
-
+        
+        <!-- Menu -->
         <Border DockPanel.Dock="Left" Width="200" Background="#B6E7D7" Padding="10" Margin="0,0,5,0">
             <StackPanel>
                 <Button Content="🧍 Nuevo paciente" Margin="0,5" Padding="10"/>
