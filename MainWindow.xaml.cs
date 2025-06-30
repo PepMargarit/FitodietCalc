@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using FitodietCalc.Views;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -29,12 +30,35 @@ public partial class MainWindow : Window
         Application.Current.Shutdown();
     }
 
-    private void Header_MouseDown(object sender, MouseButtonEventArgs e)
+    private void Header_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
-        if (e.ChangedButton == MouseButton.Left)
+        if (e.ClickCount == 2)
         {
-            this.DragMove();
+            // Doble clic: alternar entre maximizado y restaurado
+            if (WindowState == WindowState.Normal)
+                WindowState = WindowState.Maximized;
+            else
+                WindowState = WindowState.Normal;
         }
+        else if (e.ButtonState == MouseButtonState.Pressed)
+        {
+            // Arrastrar ventana
+            DragMove();
+        }
+    }
+
+    private void NuevoPaciente_Click(object sender, RoutedEventArgs e)
+    {
+        ContentArea.Content = new PacienteFormView();
+    }
+    private void ListadoPacientes_Click(object sender, RoutedEventArgs e)
+    {        
+        ContentArea.Content = new PacientesListView();
+    }
+
+    private void BuscarPaciente_Click(object sender, RoutedEventArgs e)
+    {
+        ContentArea.Content = new BuscarPacienteView();
     }
 
 

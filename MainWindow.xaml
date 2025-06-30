@@ -11,7 +11,7 @@
     <DockPanel Background="#A2D6C4">
 
         <!-- Header -->
-        <Border DockPanel.Dock="Top" Background="#EEFFF4" Padding="5" MouseDown="Header_MouseDown">
+        <Border DockPanel.Dock="Top" Background="#EEFFF4" Padding="5" MouseLeftButtonDown="Header_MouseLeftButtonDown">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -39,11 +39,10 @@
             <DockPanel LastChildFill="True">
                 <!-- Botones de navegación -->
                 <StackPanel DockPanel.Dock="Top">
-                    <Button Content="🧍 Nuevo paciente" Margin="0,5" Padding="10"/>
-                    <Button Content="🔍 Buscar / cargar paciente" Margin="0,5" Padding="10"/>
-                    <Button Content="📋 Listado de pacientes" Margin="0,5" Padding="10"/>
-                    <Button Content="📊 Resultados" Margin="0,5" Padding="10"/>
-                    <Button Content="🍽️ Plan de dieta (Fase 2)" Margin="0,5" Padding="10" IsEnabled="False"/>
+                    <Button Content="🧍 Nuevo paciente" Margin="0,5" Padding="10" Click="NuevoPaciente_Click"/>
+                    <Button Content="🔍 Buscar / cargar paciente" Margin="0,5" Click="BuscarPaciente_Click" Padding="10"/>
+                    <Button Content="📋 Listado de pacientes" Margin="0,5" Padding="10" Click="ListadoPacientes_Click"/>                    
+                    <Button Content="🍽️ Plan de dieta (Fase 2)" Margin="0,5" Padding="10" IsEnabled="False" Visibility="Collapsed"/>
                 </StackPanel>
 
                 <!-- Botón Salir en la parte inferior -->

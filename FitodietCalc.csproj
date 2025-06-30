@@ -17,7 +17,6 @@
     <Folder Include="Data\" />
     <Folder Include="Helpers\" />
     <Folder Include="Services\" />
-    <Folder Include="Views\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
 

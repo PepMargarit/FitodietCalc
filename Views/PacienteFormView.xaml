@@ -1,0 +1,113 @@
+﻿<UserControl x:Class="FitodietCalc.Views.PacienteFormView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <!-- Formulario -->
+            <RowDefinition Height="Auto"/>
+            <!-- Botones -->
+        </Grid.RowDefinitions>
+
+        <!-- FORMULARIO + EXPANDER -->
+        <StackPanel Grid.Row="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Nombre:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox x:Name="TBNombre" Grid.Row="0" Grid.Column="1" Margin="5"/>
+
+                <TextBlock Text="Primer Apellido:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox x:Name="TBApellido1" Grid.Row="1" Grid.Column="1" Margin="5"/>
+
+                <TextBlock Text="Segundo Apellido:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox x:Name="TBApellido2" Grid.Row="2" Grid.Column="1" Margin="5"/>
+
+                <TextBlock Text="Telefono:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox x:Name="TBTelefono"  Grid.Row="3" Grid.Column="1" Margin="5"/>
+
+                <TextBlock Text="Email:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox x:Name="TBEmail" Grid.Row="4" Grid.Column="1" Margin="5"/>
+
+                <TextBlock Text="Sexo:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <ComboBox Grid.Row="5" Grid.Column="1" Margin="5">
+                    <ComboBoxItem Content="Hombre"/>
+                    <ComboBoxItem Content="Mujer"/>
+                </ComboBox>
+
+                <TextBlock Text="Fecha de Nacimiento:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <DatePicker Grid.Row="6" Grid.Column="1" Margin="5"/>
+            </Grid>
+
+            <!-- EXPANDER DATOS DE EVALUACIÓN -->
+            <Expander x:Name="EvaluacionExpander"
+                      Header="Agregar datos de evaluación"
+                      Margin="0,20,0,10"
+                      ExpandDirection="Down"
+                      Expanded="EvaluacionExpander_Expanded"
+                      Collapsed="EvaluacionExpander_Collapsed">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+
+                    <TextBlock Text="Peso (kg):" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox x:Name="TBPeso" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="Altura (cm):"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox x:Name="TBAltura" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="% Grasa corporal (opcional):" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5"/>
+
+                </Grid>
+
+            </Expander>
+        </StackPanel>
+
+        <!-- ZONA DE BOTONES (FIJA) -->
+        <Border Grid.Row="1"  Margin="0,20,0,0" VerticalAlignment="Bottom">
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>                   
+                    <ColumnDefinition Width="Auto"/>                  
+                    <ColumnDefinition Width="100"/>                    
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="BtnLimpiar" Content="Limpiar Todo" Grid.Column="0" Margin="5"/>
+                <Button x:Name="BtnGuardar" Content="Guardar" Grid.Column="1" Margin="5"/>
+                <Button x:Name="BtnCalcular" Content="Calcular" Grid.Column="2" Margin="5" Visibility="Collapsed"/>
+            </Grid>
+            
+           
+        </Border>
+    </Grid>
+</UserControl>
