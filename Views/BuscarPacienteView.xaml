@@ -44,18 +44,15 @@
 
                 <TextBlock Text="Email:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox x:Name="TBEmail" Grid.Row="4" Grid.Column="1" Margin="5"/>
-
-                <TextBlock Text="Sexo:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                <ComboBox Grid.Row="5" Grid.Column="1" Margin="5">
-                    <ComboBoxItem Content="Hombre"/>
-                    <ComboBoxItem Content="Mujer"/>
-                </ComboBox>
-
-                <TextBlock Text="Fecha de Nacimiento:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                <DatePicker Grid.Row="6" Grid.Column="1" Margin="5"/>
+                
             </Grid>
 
-            <Expander x:Name="EvaluacionExpander" Header="Datos de Evaluación" Margin="0,20,0,10">
+            <Expander x:Name="EvaluacionExpander"
+            Header="Datos de evaluación"
+            Margin="0,20,0,10"
+            ExpandDirection="Down"
+            Expanded="EvaluacionExpander_Expanded"
+            Collapsed="EvaluacionExpander_Collapsed">
                 <StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -67,14 +64,32 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Text="Peso (kg):" Grid.Row="0" Grid.Column="0" Margin="0,5"/>
-                        <TextBox x:Name="TBPeso" Grid.Row="0" Grid.Column="1" Margin="5"/>
-                        <TextBlock Text="Altura (cm):" Grid.Row="1" Grid.Column="0" Margin="0,5"/>
-                        <TextBox x:Name="TBAltura" Grid.Row="1" Grid.Column="1" Margin="5"/>
-                        <TextBlock Text="% Grasa corporal (opcional):" Grid.Row="2" Grid.Column="0" Margin="0,5"/>
-                        <TextBox x:Name="TBGrasa" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Fecha de Evaluación:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <DatePicker x:Name="FechaEval" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Peso (kg):" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <TextBox x:Name="TBPeso" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Altura (cm):"  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <TextBox x:Name="TBAltura" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="% Grasa corporal (opcional):" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Masa muscular (kg):" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <TextBox x:Name="TBMasaMuscular" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Sexo:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <TextBox x:Name="TBSexo" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Actividad Fisica" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <ComboBox Grid.Row="6" Grid.Column="1" Margin="6">
+                            <ComboBoxItem Content="Sedentario"/>
+                            <ComboBoxItem Content="Ligera"/>
+                            <ComboBoxItem Content="Moderada"/>
+                            <ComboBoxItem Content="Activa"/>
+                            <ComboBoxItem Content="Intensa"/>
+                        </ComboBox>
                     </Grid>
 
                     <!-- NAVEGACIÓN ENTRE EVALUACIONES -->
@@ -92,12 +107,12 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="150"/>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="BtnLimpiar" Content="Limpiar Todo" Margin="5" Grid.Column="0"/>
                 <Button x:Name="BtnCargar" Content="Cargar" Margin="5" Grid.Column="1"/>
-                <Button x:Name="BtnModificarEval" Content="Modificar Evaluación" Margin="5" Grid.Column="2"/>
+                <Button x:Name="BtnModificarEval" Content="Modificar/Ver Evaluación" Margin="5" Grid.Column="2" Visibility="Collapsed"/>
             </Grid>
         </Border>
     </Grid>

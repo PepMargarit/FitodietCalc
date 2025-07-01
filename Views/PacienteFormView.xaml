@@ -32,7 +32,7 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Nombre:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBlock Text="*Nombre:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox x:Name="TBNombre" Grid.Row="0" Grid.Column="1" Margin="5"/>
 
                 <TextBlock Text="Primer Apellido:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
@@ -41,20 +41,20 @@
                 <TextBlock Text="Segundo Apellido:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox x:Name="TBApellido2" Grid.Row="2" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="Telefono:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBlock Text="*Telefono:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox x:Name="TBTelefono"  Grid.Row="3" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="Email:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBlock Text="*Email:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox x:Name="TBEmail" Grid.Row="4" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="Sexo:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                <ComboBox Grid.Row="5" Grid.Column="1" Margin="5">
+                <TextBlock Text="*Sexo:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <ComboBox x:Name="CBSexo" Grid.Row="5" Grid.Column="1" Margin="5">
                     <ComboBoxItem Content="Hombre"/>
                     <ComboBoxItem Content="Mujer"/>
                 </ComboBox>
 
-                <TextBlock Text="Fecha de Nacimiento:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                <DatePicker Grid.Row="6" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="*Fecha de Nacimiento:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <DatePicker x:Name="DPFechaNacimiento" Grid.Row="6" Grid.Column="1" Margin="5"/>
             </Grid>
 
             <!-- EXPANDER DATOS DE EVALUACIÓN -->
@@ -80,13 +80,24 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-
-                    <TextBlock Text="Peso (kg):" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                    <TextBox x:Name="TBPeso" Grid.Row="0" Grid.Column="1" Margin="5"/>
-                    <TextBlock Text="Altura (cm):"  Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                    <TextBox x:Name="TBAltura" Grid.Row="1" Grid.Column="1" Margin="5"/>
-                    <TextBlock Text="% Grasa corporal (opcional):" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                    <TextBox Grid.Row="2" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="Fecha de Evaluación:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <DatePicker x:Name="DPFechaEval" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="Peso (kg):" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox x:Name="TBPeso" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="Altura (cm):"  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox x:Name="TBAltura" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="% Grasa corporal (opcional):" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox x:Name="TBGrasa" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="Masa muscular (kg):" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <TextBox x:Name="TBMasaMuscular" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                    <TextBlock Text="Actividad Fisica" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                    <ComboBox x:Name="CBActividad" Grid.Row="5" Grid.Column="1" Margin="5">
+                        <ComboBoxItem Content="Sedentario"/>
+                        <ComboBoxItem Content="Ligera"/>
+                        <ComboBoxItem Content="Moderada"/>
+                        <ComboBoxItem Content="Activa"/>
+                        <ComboBoxItem Content="Intensa"/>
+                    </ComboBox>
 
                 </Grid>
 
@@ -103,7 +114,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="BtnLimpiar" Content="Limpiar Todo" Grid.Column="0" Margin="5"/>
-                <Button x:Name="BtnGuardar" Content="Guardar" Grid.Column="1" Margin="5"/>
+                <Button x:Name="BtnGuardar" Content="Guardar" Grid.Column="1" Margin="5" Click="BtnGuardar_Click"/>
                 <Button x:Name="BtnCalcular" Content="Calcular" Grid.Column="2" Margin="5" Visibility="Collapsed"/>
             </Grid>
             

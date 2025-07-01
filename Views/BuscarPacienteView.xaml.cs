@@ -48,5 +48,15 @@ namespace FitodietCalc.Views
         {
             // Lógica para guardar cambios en la evaluación actual
         }
+
+        private void EvaluacionExpander_Expanded(object sender, RoutedEventArgs e)
+        {
+            BtnModificarEval.Visibility = Visibility.Visible;
+        }
+
+        private void EvaluacionExpander_Collapsed(object sender, RoutedEventArgs e)
+        {
+            BtnModificarEval.Visibility = Visibility.Collapsed;
+        }
     }
 }
