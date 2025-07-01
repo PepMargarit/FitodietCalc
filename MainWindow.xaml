@@ -8,7 +8,7 @@
         AllowsTransparency="False"
         Background="White">
 
-    <DockPanel Background="#A2D6C4">
+    <DockPanel Background="#B6E7D7">
 
         <!-- Header -->
         <Border DockPanel.Dock="Top" Background="#EEFFF4" Padding="5" MouseDown="Header_MouseDown">
@@ -35,7 +35,7 @@
 
 
         <!-- Menu -->
-        <Border DockPanel.Dock="Left" Width="200" Background="#B6E7D7" Padding="10" Margin="0,0,5,0">
+        <Border DockPanel.Dock="Left" Width="200" Background="#A2D6C4" Padding="10" Margin="0,0,5,0">
             <DockPanel LastChildFill="True">
                 <!-- Botones de navegación -->
                 <StackPanel DockPanel.Dock="Top">
