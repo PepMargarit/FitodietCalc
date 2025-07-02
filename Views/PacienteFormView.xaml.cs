@@ -27,17 +27,31 @@ namespace FitodietCalc.Views
     {
         private readonly AppDbContext _dbContext;
         private readonly PacienteService _pacienteService;
+        private readonly EvaluacionService _evaluacionService;
+
         public PacienteFormView()
         {
             InitializeComponent();
             _dbContext = new AppDbContext();
             _pacienteService = new PacienteService(_dbContext);
+            _evaluacionService = new EvaluacionService(_dbContext);
         }
 
         private void EvaluacionExpander_Expanded(object sender, RoutedEventArgs e)
         {
-            BtnCalcular.Visibility = Visibility.Visible;
-            DPFechaEval.SelectedDate = DateTime.Now; 
+            var paciente = ObtenerPacienteDesdeFormulario();
+            if (paciente != null)
+            {
+
+                BtnCalcular.Visibility = Visibility.Visible;
+                DPFechaEval.SelectedDate = DateTime.Now;
+            }
+            else
+            {
+                MessageBox.Show("Por favor, complete los datos del paciente antes de agregar una evaluación.", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
+                EvaluacionExpander.IsExpanded = false; // Cierra el expander si no hay datos del paciente
+                return;
+            }
         }
 
         private void EvaluacionExpander_Collapsed(object sender, RoutedEventArgs e)
@@ -45,13 +59,11 @@ namespace FitodietCalc.Views
             BtnCalcular.Visibility = Visibility.Collapsed;
             DPFechaEval.SelectedDate = null; 
             TBPeso.Text = string.Empty;
-            TBAltura.Text = string.Empty;
-            TBGrasa.Text = string.Empty;
-            TBMasaMuscular.Text = string.Empty;
+            TBAltura.Text = string.Empty;            
             CBActividad.SelectedIndex = -1; 
         }
 
-        private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        private Paciente? ObtenerPacienteDesdeFormulario()
         {
             if (string.IsNullOrWhiteSpace(TBNombre.Text) ||                
                 string.IsNullOrWhiteSpace(TBEmail.Text) ||
@@ -60,49 +72,99 @@ namespace FitodietCalc.Views
                 CBSexo.SelectedItem == null)
             {
                 MessageBox.Show("Por favor, complete todos los campos obligatorios. *", "Advertencia", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                return null;
             }
             if (!Helpers.Validations.ValidarTelefono(TBTelefono.Text))
             {
                 MessageBox.Show("El teléfono ingresado no es válido.", "Error de validación", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                return null;
             }
             if (!Helpers.Validations.ValidarEmail(TBEmail.Text))
             {
                 MessageBox.Show("El email ingresado no es válido.", "Error de validación", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return new Paciente
+            {
+                Nombre = TBNombre.Text,
+                Apellido1 = TBApellido1.Text,
+                Apellido2 = TBApellido2.Text,
+                Email = TBEmail.Text,
+                Telefono = TBTelefono.Text,
+                FechaNacimiento = DPFechaNacimiento.SelectedDate ?? DateTime.MinValue,
+                Sexo = (CBSexo.SelectedItem as ComboBoxItem)?.Content.ToString() ?? string.Empty
+            };
+        }
+
+        private async void BtnGuardar_Click(object sender, RoutedEventArgs e)
+        {          
+            
+            var paciente = ObtenerPacienteDesdeFormulario();
+            if (paciente == null)
+            {
+                return; // Si no se pudo obtener el paciente, salimos del método
+            }
+            bool yaExiste = await _pacienteService.PacienteYaExisteAsync(paciente);
+            if (yaExiste && !EvaluacionExpander.IsExpanded)
+            {
+                MessageBox.Show("Este paciente ya existe en la base de datos.", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
-            
-            var paciente = new Paciente(
-                    nombre: TBNombre.Text,
-                    apellido1: TBApellido1.Text,
-                    apellido2: TBApellido2.Text,
-                    email: TBEmail.Text,
-                    telefone: TBTelefono.Text,
-                    fechaNacimento: DPFechaNacimiento.SelectedDate ?? DateTime.MinValue,
-                    sexo: (CBSexo.SelectedItem as ComboBoxItem)?.Content.ToString()
-                );
+
             try
-            {
-                bool yaExiste = await _pacienteService.PacienteYaExisteAsync(paciente);
-                if (yaExiste && !EvaluacionExpander.IsExpanded)
-                {
-                    MessageBox.Show("Este paciente ya existe en la base de datos.", "Duplicado", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
+            {    
                 if (EvaluacionExpander.IsExpanded)
                 {
-                    // Aquí puedes agregar la lógica para manejar la evaluación si es necesario
-                    // Por ejemplo, podrías crear una nueva evaluación y asociarla al paciente
+                    if (!yaExiste)
+                    {
+                        await _pacienteService.CrearPacienteAsync(paciente);
+                        paciente = await _pacienteService.ObtenerPacientePorEmailAsync(paciente.Email);
+                    }
+
+                    double.TryParse(TBPeso.Text, out double peso);
+                    double.TryParse(TBAltura.Text, out double altura);
+
+
+                    var evaluacion = new Evaluacion
+                    {
+                        PacienteId = paciente.Id,
+                        Fecha = (DateTime)DPFechaEval.SelectedDate,
+                        PesoKg = peso,
+                        AlturaCm = altura,
+                    };
+
+                    if (CBActividad.SelectedItem is ComboBoxItem item)
+                    {
+                        var actividadTexto = item.Content.ToString();
+                        if (Enum.TryParse<Evaluacion.ActividadFisica>(actividadTexto, out var actividadParsed))
+                            evaluacion.NivelActividad = actividadParsed;
+                    }
+                    await _evaluacionService.CrearEvaluacionAsync(evaluacion);
+                    MessageBox.Show("Paciente y Evaluacion guardados correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else if (!yaExiste)
+                {
+                    await _pacienteService.CrearPacienteAsync(paciente);
+                    MessageBox.Show("Paciente guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
 
-                await _pacienteService.CrearPacienteAsync(paciente);
-
-                MessageBox.Show("Paciente guardado correctamente.", "Éxito", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error al guardar el paciente:\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void BtnLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            if (Application.Current.MainWindow is MainWindow mainWindow)
+            {
+                mainWindow.ContentArea.Content = new PacienteFormView();
+ 
+            }
+            else
+            {
+                MessageBox.Show("Error al limpiar el formulario.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

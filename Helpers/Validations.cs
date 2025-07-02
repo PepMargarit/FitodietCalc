@@ -26,5 +26,7 @@ namespace FitodietCalc.Helpers
             var pattern = @"^[\d\+\-\(\)\s]{7,15}$";
             return Regex.IsMatch(telefono, pattern);
         }
+
+       
     }
 }

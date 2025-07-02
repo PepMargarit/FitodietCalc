@@ -11,12 +11,10 @@ namespace FitodietCalc.Models
         public int Id { get; set; }
         public required int PacienteId { get; set; }
         public Paciente Paciente { get; set; }
-        public DateTime Fecha { get; set; }
+        public DateTime Fecha { get; set; } = DateTime.Now;
         public double PesoKg { get; set; }
-        public double AlturaCm { get; set; }        
-        public double GrasaCorporal { get; set; } = 0;
-        public double MasaMuscular { get; set; } = 0;
-        
+        public double AlturaCm { get; set; }   
+        public ActividadFisica? NivelActividad { get; set; }
         public enum ActividadFisica
         {
             Sedentario,
@@ -24,8 +22,7 @@ namespace FitodietCalc.Models
             Moderada,
             Activa,
             Intensa
-
-        }        
+        }    
 
     }
 }

@@ -38,5 +38,22 @@ namespace FitodietCalc.Services
                 ||
                 p.Email == paciente.Email);
         }
+        public async Task<Paciente?> ObtenerPacientePorNombreYApellidosAsync(string nombre, string apellido1, string apellido2)
+        {
+            return await _context.Pacientes
+                .FirstOrDefaultAsync(p => p.Nombre == nombre &&
+                                          p.Apellido1 == apellido1 &&
+                                          p.Apellido2 == apellido2);
+        }
+        public async Task<Paciente?> ObtenerPacientePorEmailAsync(string email)
+        {
+            return await _context.Pacientes
+                .FirstOrDefaultAsync(p => p.Email == email);
+        }
+        public async Task<Paciente?> ObtenerPacientePorTelefonoAsync(string telefono)
+        {
+            return await _context.Pacientes
+                .FirstOrDefaultAsync(p => p.Telefono == telefono);
+        }
     }
 }
