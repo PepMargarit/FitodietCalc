@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitodietCalc.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,6 +61,63 @@ namespace FitodietCalc.Helpers
             {
                 throw new ArgumentException("Sexo no válido. Debe ser 'Hombre' o 'Mujer'.");
             }
+        }
+        public static double CalcularHarrisBenedict(double pesoKg, double alturaCm, int edad, string sexo)
+        {
+            if (sexo == "Hombre")
+            {
+                // GEB = 66.5 + (13.75 × peso) + (5.003 × altura) − (6.755 × edad)
+                return Math.Round(66.5 + (13.75 * pesoKg) + (5.003 * alturaCm) - (6.755 * edad), 2);
+            }
+            else if (sexo == "Mujer")
+            {
+                // GEB = 655.1 + (9.563 × peso) + (1.850 × altura) − (4.676 × edad)
+                return Math.Round(655.1 + (9.563 * pesoKg) + (1.850 * alturaCm) - (4.676 * edad), 2);
+            }
+            else
+            {
+                throw new ArgumentException("Sexo no válido. Debe ser 'Hombre' o 'Mujer'.");
+            }
+        }
+
+        public static string ObtenerFormulaHarrisBenedict(double pesoKg, double alturaCm, int edad, string sexo)
+        {
+            if (sexo == "Hombre")
+            {
+                return $"GEB = 66.5 + (13.75 × {pesoKg}) + (5.003 × {alturaCm}) − (6.755 × {edad})";
+            }
+            else if (sexo == "Mujer")
+            {
+                return $"GEB = 655.1 + (9.563 × {pesoKg}) + (1.850 × {alturaCm}) − (4.676 × {edad})";
+            }
+            else
+            {
+                throw new ArgumentException("Sexo no válido. Debe ser 'Hombre' o 'Mujer'.");
+            }
+        }
+        public static double GetFactorActividadFisica(Evaluacion.ActividadFisica? nivel)
+        {
+            return nivel switch
+            {
+                Evaluacion.ActividadFisica.Sedentario => 1.2,
+                Evaluacion.ActividadFisica.Ligera => 1.375,
+                Evaluacion.ActividadFisica.Moderada => 1.55,
+                Evaluacion.ActividadFisica.Activa => 1.725,
+                Evaluacion.ActividadFisica.Intensa => 1.9,
+                _ => 1.0 // Si no se especifica, usamos un valor neutro (evita errores)
+            };
+        }
+
+        public static double CalcularGET(double tmb, Evaluacion.ActividadFisica? nivel)
+        {
+            double faf = GetFactorActividadFisica(nivel);
+            return Math.Round(tmb * faf, 2);
+        }
+
+        public static string ObtenerFormulaMifflin(double pesoKg, double alturaCm, int edad, string sexo)
+        {
+            string sexoPart = sexo == "Hombre" ? "+ 5" : "− 161";
+            return $"GEB = (10 × {pesoKg}) + (6.25 × {alturaCm}) − (5 × {edad}) {sexoPart}";
         }
     }
 }

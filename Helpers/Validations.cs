@@ -26,7 +26,12 @@ namespace FitodietCalc.Helpers
             var pattern = @"^[\d\+\-\(\)\s]{7,15}$";
             return Regex.IsMatch(telefono, pattern);
         }
+        public static bool ValidarFechaNacimiento(DateTime fechaNacimiento)
+        {
+            // Verifica que la fecha de nacimiento no sea futura y que tenga al menos 5 años
+            return fechaNacimiento <= DateTime.Now && (DateTime.Now.Year - fechaNacimiento.Year) >= 5;
+        }
 
-       
+
     }
 }

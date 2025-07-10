@@ -111,7 +111,7 @@
 
                 <Button x:Name="BtnLimpiar" Content="Limpiar Todo" Grid.Column="0" Margin="5" Click="BtnLimpiar_Click"/>
                 <Button x:Name="BtnGuardar" Content="Guardar" Grid.Column="1" Margin="5" Click="BtnGuardar_Click"/>
-                <Button x:Name="BtnCalcular" Content="Calcular" Grid.Column="2" Margin="5" Visibility="Collapsed" Click="BtnGuardar_Click"/>
+                <Button x:Name="BtnCalcular" Content="Calcular" Grid.Column="2" Margin="5" Visibility="Collapsed" Click="BtnCalcular_Click"/>
             </Grid>
             
            

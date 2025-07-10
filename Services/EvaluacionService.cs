@@ -36,11 +36,23 @@ namespace FitodietCalc.Services
                 .OrderByDescending(e => e.Fecha)
                 .FirstOrDefaultAsync();
         }
+        public async Task<Evaluacion> ObtenerEvaluacion(int pacienteId, DateTime fecha)
+        {
+            return await _context.Evaluaciones
+                .Where(e => e.PacienteId == pacienteId && e.Fecha == fecha)
+                .FirstOrDefaultAsync();
+        }
         public async Task<bool> EvaluacionYaExisteAsync(int pacienteId, DateTime fecha)
         {
             return await _context.Evaluaciones
                 .AnyAsync(e => e.PacienteId == pacienteId && e.Fecha.Date == fecha.Date);
         }
         
+        public async Task ActualizarEvaluacionAsync(Evaluacion evaluacion)
+        {
+            _context.Evaluaciones.Update(evaluacion);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
