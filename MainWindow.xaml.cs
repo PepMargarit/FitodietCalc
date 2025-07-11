@@ -50,7 +50,7 @@ public partial class MainWindow : Window
 
     private void NuevoPaciente_Click(object sender, RoutedEventArgs e)
     {
-        ContentArea.Content = new PacienteFormView();
+        ContentArea.Content = new PacienteFormView(PacienteFormView.FormMode.Crear);
     }
     private void ListadoPacientes_Click(object sender, RoutedEventArgs e)
     {        
@@ -59,7 +59,7 @@ public partial class MainWindow : Window
 
     private void BuscarPaciente_Click(object sender, RoutedEventArgs e)
     {
-        ContentArea.Content = new BuscarPacienteView();
+        ContentArea.Content = new PacienteFormView(PacienteFormView.FormMode.Buscar);
     }
 
 

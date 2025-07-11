@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="800">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
@@ -64,39 +64,47 @@
                       ExpandDirection="Down"
                       Expanded="EvaluacionExpander_Expanded"
                       Collapsed="EvaluacionExpander_Collapsed">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
 
-                    <TextBlock Text="Fecha de Evaluación:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                    <DatePicker x:Name="DPFechaEval" Grid.Row="0" Grid.Column="1" Margin="5"/>
-                    <TextBlock Text="Peso (kg):" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                    <TextBox x:Name="TBPeso" Grid.Row="1" Grid.Column="1" Margin="5"/>
-                    <TextBlock Text="Altura (cm):"  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                    <TextBox x:Name="TBAltura" Grid.Row="2" Grid.Column="1" Margin="5"/>                    
-                    <TextBlock Text="Actividad Fisica" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                    <ComboBox x:Name="CBActividad" Grid.Row="5" Grid.Column="1" Margin="5">
-                        <ComboBoxItem Content="Sedentario"/>
-                        <ComboBoxItem Content="Ligera"/>
-                        <ComboBoxItem Content="Moderada"/>
-                        <ComboBoxItem Content="Activa"/>
-                        <ComboBoxItem Content="Intensa"/>
-                    </ComboBox>
+                        <TextBlock Text="Fecha de Evaluación:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <DatePicker x:Name="DPFechaEval" Grid.Row="0" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Peso (kg):" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <TextBox x:Name="TBPeso" Grid.Row="1" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Altura (cm):"  Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <TextBox x:Name="TBAltura" Grid.Row="2" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="Actividad Fisica" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                        <ComboBox x:Name="CBActividad" Grid.Row="5" Grid.Column="1" Margin="5">
+                            <ComboBoxItem Content="Sedentario"/>
+                            <ComboBoxItem Content="Ligera"/>
+                            <ComboBoxItem Content="Moderada"/>
+                            <ComboBoxItem Content="Activa"/>
+                            <ComboBoxItem Content="Intensa"/>
+                        </ComboBox>
 
-                </Grid>
+                    </Grid>
 
+                    <!-- NAVEGACIÓN ENTRE EVALUACIONES -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <Button x:Name="BtnAnterior" Content="⟨ Anterior" Margin="5" Width="100" Visibility="Collapsed" Click="BtnAnterior_Click"/>
+                        <Button x:Name="BtnSiguiente" Content="Siguiente ⟩" Margin="5" Width="100" Visibility="Collapsed" Click="BtnSiguiente_Click"/>
+                    </StackPanel>
+                </StackPanel>
             </Expander>
         </StackPanel>
 
@@ -104,14 +112,20 @@
         <Border Grid.Row="1"  Margin="0,20,0,0" VerticalAlignment="Bottom">
             <Grid HorizontalAlignment="Right">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>                   
-                    <ColumnDefinition Width="Auto"/>                  
-                    <ColumnDefinition Width="100"/>                    
+                    <ColumnDefinition Width="120"/>                   
+                    <ColumnDefinition Width="100"/>                  
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="100"/>
                 </Grid.ColumnDefinitions>
 
                 <Button x:Name="BtnLimpiar" Content="Limpiar Todo" Grid.Column="0" Margin="5" Click="BtnLimpiar_Click"/>
-                <Button x:Name="BtnGuardar" Content="Guardar" Grid.Column="1" Margin="5" Click="BtnGuardar_Click"/>
-                <Button x:Name="BtnCalcular" Content="Calcular" Grid.Column="2" Margin="5" Visibility="Collapsed" Click="BtnCalcular_Click"/>
+                
+                <Button x:Name="BtnGuardar" Content="Guardar" Grid.Column="1" Margin="5" Visibility="Collapsed" Click="BtnGuardar_Click"/>
+                <Button x:Name="BtnCargar" Content="Cargar" Grid.Column="1" Margin="5" Visibility="Collapsed" Click="BtnCargar_Click"/>
+
+                <Button x:Name="BtnModificar" Content="Modificar" Grid.Column="2" Margin="5" Visibility="Collapsed" Click="BtnModificar_Click"/>
+
+                <Button x:Name="BtnCalcular" Content="Calcular" Grid.Column="3" Margin="5" Click="BtnCalcular_Click"/>
             </Grid>
             
            

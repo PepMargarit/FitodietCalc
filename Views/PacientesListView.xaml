@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="550" d:DesignWidth="800">
 
     <Grid Margin="10" >
 
@@ -20,31 +20,38 @@
         <!-- Buscador -->
         <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,5">
             <TextBlock Text="🔍Nombre:" VerticalAlignment="Center" FontSize="14" Margin="0,0,5,0"/>
-            <TextBox x:Name="NombreBusquedaTextBox" Width="200" VerticalAlignment="Center"/>
+            <TextBox x:Name="NombreBusquedaTextBox" Width="150" VerticalAlignment="Center"/>
         </StackPanel>
 
         <!-- Tabla de pacientes -->
         <DataGrid x:Name="PacientesDataGrid" Grid.Row="1" AutoGenerateColumns="False" 
                   CanUserAddRows="False" CanUserDeleteRows="False" 
-                  IsReadOnly="True" Margin="25,0,0,0" 
+                  IsReadOnly="True" Margin="10,0,0,0" 
                   SelectionMode="Single"
                   MouseDoubleClick="PacientesDataGrid_MouseDoubleClick"
                   >
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" Width="*"/>
-                <DataGridTextColumn Header="Primer Apellido" Binding="{Binding PrimerApellido}" Width="*"/>
-                <DataGridTextColumn Header="Segundo Apellido" Binding="{Binding SegundoApellido}" Width="*"/>
+                <DataGridTextColumn Header="Primer Apellido" Binding="{Binding Apellido1}" Width="*"/>
+                <DataGridTextColumn Header="Segundo Apellido" Binding="{Binding Apellido2}" Width="*"/>
                 <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="*"/>
                 <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Botón Cargar Datos -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,10,0">
-            <Button x:Name="CargarDatosButton" Content="Cargar Datos" Width="120" Height="30" Margin="0,0,0,10"/>
-        </StackPanel>
+        <!-- ZONA DE BOTONES (FIJA) -->
+        <Border Grid.Row="1"  Margin="0,20,0,0" VerticalAlignment="Bottom">
+            <Grid HorizontalAlignment="Right">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="130"/>
+                </Grid.ColumnDefinitions>
 
+                <Button x:Name="CargarDatosButton" Content="Cargar Datos" Grid.Column="0" Margin="5" Click="CargarDatosButton_Click"/>
+                <Button x:Name="EliminarPaciente" Content="Eliminar Paciente" Grid.Column="1" Margin="5" Click="EliminarPacienteButton_Click"/>
+            </Grid>
+        </Border>
     </Grid>
 
 </UserControl>

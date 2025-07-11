@@ -54,10 +54,12 @@ namespace FitodietCalc.Views
             double masaMuscular = Operations.CalculateMasaMuscular(_evaluacion.PesoKg, _evaluacion.AlturaCm, grasaCorporal);
 
             // TMB por Mifflin-St Jeor
-            double tmbMifflin = Operations.CalculateTMB(_evaluacion.PesoKg, _evaluacion.AlturaCm, edad, _paciente.Sexo);
+            string formulaMifflin = Operations.ObtenerFormulaMifflin(_evaluacion.PesoKg, _evaluacion.AlturaCm, edad, _paciente.Sexo);
+            double tmbMifflin = Operations.CalculateMifflin(_evaluacion.PesoKg, _evaluacion.AlturaCm, edad, _paciente.Sexo);
             double getMifflin = Operations.CalcularGET(tmbMifflin, _evaluacion.NivelActividad);
 
             // TMB por Harris-Benedict
+            string formulaHarris = Operations.ObtenerFormulaHarrisBenedict(_evaluacion.PesoKg, _evaluacion.AlturaCm, edad, _paciente.Sexo);
             double tmbHarris = Operations.CalcularHarrisBenedict(_evaluacion.PesoKg, _evaluacion.AlturaCm, edad, _paciente.Sexo);
             double getHarris = Operations.CalcularGET(tmbHarris, _evaluacion.NivelActividad);
 
@@ -67,9 +69,11 @@ namespace FitodietCalc.Views
             LblGrasa.Text = $"{grasaCorporal:F2} %";
             LblMasaMuscular.Text = $"{masaMuscular:F2} kg";
 
+            LblFormulaHarris.Text = formulaHarris;
             LblHarris.Text = $"{tmbHarris} kcal";
             LblHarrisGET.Text = $"{getHarris} kcal";
 
+            LblFormulaMifflin.Text = formulaMifflin;
             LblMifflin.Text = $"{tmbMifflin} kcal";
             LblMifflinGET.Text = $"{getMifflin} kcal";
         }

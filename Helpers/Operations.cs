@@ -23,11 +23,17 @@ namespace FitodietCalc.Helpers
         }
         public static string GetIMCClassification(double imc)
         {
-            if (imc < 18.5) return "Bajo peso";
-            else if (imc >= 18.5 && imc < 24.9) return "Peso normal";
-            else if (imc >= 25 && imc < 29.9) return "Sobrepeso";
-            else return "Obesidad";
+            if (imc < 16) return "Delgadez severa";                        
+            else if (imc >= 16 && imc < 17) return "Delgadez moderada";   
+            else if (imc >= 17 && imc < 18.5) return "Delgadez leve";     
+            else if (imc >= 18.5 && imc < 25) return "Peso Normal";         
+            else if (imc >= 25 && imc < 27.5) return "Sobrepeso leve";    
+            else if (imc >= 27.5 && imc < 30) return "Sobrepeso moderado";
+            else if (imc >= 30 && imc < 35) return "Obesidad grado I";    
+            else if (imc >= 35 && imc < 40) return "Obesidad grado II";   
+            else return "Obesidad grado III (mórbida)";                   
         }
+
         public static double CalculateGrasaCorporal(double imc, int edad, string sexo)
         {
             if (sexo == "Hombre")
@@ -47,7 +53,12 @@ namespace FitodietCalc.Helpers
         {            
             return Math.Round(pesoKg * (1 - (grasaCorporal / 100)), 2);
         }
-        public static double CalculateTMB(double pesoKg, double alturaCm, int edad, string sexo)
+        public static string ObtenerFormulaMifflin(double pesoKg, double alturaCm, int edad, string sexo)
+        {
+            string sexoPart = sexo == "Hombre" ? "+ 5" : "− 161";
+            return $"GEB = (10 × {pesoKg}) + (6.25 × {alturaCm}) − (5 × {edad}) {sexoPart}";
+        }
+        public static double CalculateMifflin(double pesoKg, double alturaCm, int edad, string sexo)
         {
             if (sexo == "Hombre")
             {
@@ -56,6 +67,21 @@ namespace FitodietCalc.Helpers
             else if (sexo == "Mujer")
             {
                 return Math.Round(10 * pesoKg + 6.25 * alturaCm - 5 * edad - 161, 2);
+            }
+            else
+            {
+                throw new ArgumentException("Sexo no válido. Debe ser 'Hombre' o 'Mujer'.");
+            }
+        }
+        public static string ObtenerFormulaHarrisBenedict(double pesoKg, double alturaCm, int edad, string sexo)
+        {
+            if (sexo == "Hombre")
+            {
+                return $"GEB = 66.5 + (13.75 × {pesoKg}) + (5.003 × {alturaCm}) − (6.755 × {edad})";
+            }
+            else if (sexo == "Mujer")
+            {
+                return $"GEB = 655.1 + (9.563 × {pesoKg}) + (1.850 × {alturaCm}) − (4.676 × {edad})";
             }
             else
             {
@@ -80,21 +106,7 @@ namespace FitodietCalc.Helpers
             }
         }
 
-        public static string ObtenerFormulaHarrisBenedict(double pesoKg, double alturaCm, int edad, string sexo)
-        {
-            if (sexo == "Hombre")
-            {
-                return $"GEB = 66.5 + (13.75 × {pesoKg}) + (5.003 × {alturaCm}) − (6.755 × {edad})";
-            }
-            else if (sexo == "Mujer")
-            {
-                return $"GEB = 655.1 + (9.563 × {pesoKg}) + (1.850 × {alturaCm}) − (4.676 × {edad})";
-            }
-            else
-            {
-                throw new ArgumentException("Sexo no válido. Debe ser 'Hombre' o 'Mujer'.");
-            }
-        }
+       
         public static double GetFactorActividadFisica(Evaluacion.ActividadFisica? nivel)
         {
             return nivel switch
@@ -114,10 +126,6 @@ namespace FitodietCalc.Helpers
             return Math.Round(tmb * faf, 2);
         }
 
-        public static string ObtenerFormulaMifflin(double pesoKg, double alturaCm, int edad, string sexo)
-        {
-            string sexoPart = sexo == "Hombre" ? "+ 5" : "− 161";
-            return $"GEB = (10 × {pesoKg}) + (6.25 × {alturaCm}) − (5 × {edad}) {sexoPart}";
-        }
+       
     }
 }
